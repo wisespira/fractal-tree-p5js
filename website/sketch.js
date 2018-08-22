@@ -1,27 +1,37 @@
-let counter = 0;
-
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  background(0, 0, 0);
-  console.log("running");
+var angle
+var slider;
+function setup(){
+createCanvas(400,400);
+slider = createSlider(0, TWO_PI,PI/4,0.01);
 }
 
-function draw() {
-  fractialTree(60, 20, 60, 80 ,4);
-
+function draw(){
+   background(51);
+   angle = slider.value();
+   stroke(255);
+   translate(200,height);
+   branch(100);
 
 }
 
-function fractialTree(x, y, x2, y2, i) {
-  counter++;
-  if (counter < i) {
-    branch(x, y, x2, y2);
-    return fractialTree(x, y, x2, y2, i);
-  }
-}
+function branch(len){
+      line(0,0,0,-len);
+      translate(0,-len);
+  //    rotate(angle);
+      if(len>4){
+          push();
+          rotate(angle);
+          branch(len*0.67);
+          pop();
+          push();
+          rotate(-angle);
+          branch(len*0.67);
+          pop();
+      }
 
-function branch(x, y, x2, y2) {
-  stroke(200);
-  line(windowWidth / 2 + x, windowHeight - y, windowWidth / 2 + x2,  windowHeight - y2 -y);
-  console.log( windowHeight - y2 - y);
+      //line(0,0,0,-len *0.67);
+
+
+
+
 }
